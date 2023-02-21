@@ -11,7 +11,7 @@ int res = 0;
 }
 
 void wrapped() {
-    int count = 0;
+    volatile int count = 0;  // modified locals in setjmp scope must be volatile
     res = setjmp(my_jump_buffer);
     count = count + 1;
     std::cout << "wrapped: " << count << std::endl;
@@ -19,12 +19,12 @@ void wrapped() {
 
 int main()
 {
-    int count = 0; // modified locals in setjmp scope must be volatile
+    int count = 0;
     wrapped();
     while (res != 5) {
       while (res != 5) {
           foo(count++);
-      }
+      }  // when wrapped() returns, it escapes this while loop
       std::cout << "res: " << res << std::endl;
     }
     std::cout << "exit" << std::endl;
