@@ -9,7 +9,10 @@ rand_number: rand_number.cc
 rotate: rotate.cc
 	$(CXX) -std=c++11 -o rotate.exe rotate.cc
 
-all: jump rand_number rotate
+print_vptr: print_vptr.cc
+	$(CXX) -o print_vptr.exe print_vptr.cc
+
+all: jump rand_number rotate print_vptr
 
 clean:
 	rm *.exe
