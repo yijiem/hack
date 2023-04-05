@@ -1,13 +1,13 @@
 ifeq ($(OS),Windows_NT)
-CXX=cl.exe
-CCFLAGS=/EHsc
-OUTPUT=/Fe:$@.exe
-RM=del
+	CXX=cl.exe
+	CCFLAGS=/EHsc
+	OUTPUT=/Fe:$@.exe
+	RM=del
 else
-CXX=clang++
-CCFLAGS=-std=c++11
-OUTPUT=-o $@.exe
-RM=rm
+	CXX=clang++
+	CCFLAGS=-std=c++11
+	OUTPUT=-o $@.exe
+	RM=rm
 endif
 
 jump: jump.cc
@@ -25,7 +25,13 @@ print_vptr: print_vptr.cc
 service: service.cpp
 	$(CXX) $(CCFLAGS) $(OUTPUT) $<
 
-all: jump rand_number rotate print_vptr service
+destruct: destruct.cc
+	$(CXX) $(CCFLAGS) $(OUTPUT) $<
+
+destruct2: destruct2.cc
+	$(CXX) $(CCFLAGS) $(OUTPUT) $<
+
+all: jump rand_number rotate print_vptr service destruct destruct2
 
 clean:
-	$(RM) *.exe *.obj *.o
+	$(RM) *.exe *.obj *.o *.out
